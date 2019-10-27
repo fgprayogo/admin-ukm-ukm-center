@@ -9,7 +9,8 @@ import {
     LOAD_PT,
     LOAD_FAKULTAS,
     LOAD_PRODI,
-    CLEAR_FORM
+    CLEAR_FORM_FAKULTAS,
+    CLEAR_FORM_PRODI
   } from "Constants/actionTypes";
   
   const INIT_STATE = {
@@ -20,7 +21,7 @@ import {
     pt:[],
     fakultas:[],
     prodi:[],
-    msg:'',
+    msg:null,
   };
   
   export default (state = INIT_STATE, action) => {
@@ -52,11 +53,15 @@ import {
             ...state, 
             prodi : action.payload.prodi
           };
-      case CLEAR_FORM:
+      case CLEAR_FORM_FAKULTAS:
           return { 
             ...state, 
-            fakultas : [],
-            prodi : []
+            fakultas : null
+          };
+      case CLEAR_FORM_PRODI:
+          return { 
+            ...state, 
+            prodi : null
           };
       case PROFILE:
         return {
@@ -72,7 +77,7 @@ import {
         //notify.success('Register User Success');
         return { ...state, loading: false, user: action.payload.uid };
       case LOGOUT_USER:
-        return { ...state, user: null, token: null };
+        return { ...state, user: null, token: null , msg:null };
       default:
         return { ...state };
     }

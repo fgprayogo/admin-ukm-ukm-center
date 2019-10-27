@@ -9,7 +9,8 @@ import {
   LOAD_PT,
   LOAD_FAKULTAS,
   LOAD_PRODI,
-  CLEAR_FORM
+  CLEAR_FORM_FAKULTAS,
+  CLEAR_FORM_PRODI
 } from 'Constants/actionTypes';
 import axios from 'axios'
 import { async } from 'q';
@@ -229,14 +230,19 @@ export function loadProdi ({fakultas_id}){
   }
 }
 
-export function clearForm (){
+export function clearFormFakultas (){
   return async (dispatch) => {
     dispatch({
-      type: CLEAR_FORM,
+      type: CLEAR_FORM_FAKULTAS,
       payload: ''
       })
   }
-
-
-    // localStorage.setItem("profile", res.data)
+}
+export function clearFormProdi (){
+  return async (dispatch) => {
+    dispatch({
+      type: CLEAR_FORM_PRODI,
+      payload: ''
+      })
   }
+}

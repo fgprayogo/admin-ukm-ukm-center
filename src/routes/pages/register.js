@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react";
 import IntlMessages from "Util/IntlMessages";
-import { Row, Card, CardTitle, Form, Label, Input, Button , Modal , ModalHeader, ModalBody, ModalFooter , Alert}  from "reactstrap";
+import { Row, Card, CardTitle, Form, Label, Input, Button , Modal , ModalHeader, ModalBody, ModalFooter }  from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 import { Colxx } from "Components/CustomBootstrap";
 
 import { connect } from "react-redux";
-import { registerUser , loadPt , loadFakultas , loadProdi , clearForm} from "Redux/actions";
+import { registerUser , loadPt , loadFakultas , loadProdi , clearFormFakultas , clearFormProdi} from "Redux/actions";
 
 import Select from "react-select";
 
@@ -40,6 +40,7 @@ class RegisterLayout extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.toggle = this.toggle.bind(this);
   }
+ 
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
@@ -70,12 +71,14 @@ class RegisterLayout extends Component {
     document.body.classList.remove("background");
   }
   handlePt(value){
-    this.props.clearForm()
+    this.props.clearFormFakultas()
+    this.props.clearFormProdi()
     this.setState({pt_id:value.value})
     this.props.loadFakultas({'pt_id':`${value.value}`})
   }
  
   handleFakultas(value){
+    this.props.clearFormProdi()
     this.setState({fakultas_id:value.value , fakultas_pt_id:value.pt})
     this.props.loadProdi({'fakultas_id':`${value.value}`})
 
@@ -107,12 +110,16 @@ class RegisterLayout extends Component {
     
   }
 
+  componentDidUpdate(){
+    console.log(this.props.fakultas)
+  }
+
 
 
   render() {
     return (
       <Fragment>
-        <div className="fixed-background" />
+        <div className="kustom" />         {/* fixed-background */}
         <main>
           <div className="container">
             <Row className="h-100">
@@ -122,6 +129,7 @@ class RegisterLayout extends Component {
                     <p className="text-white h2">UKM Center</p>
                     <p className="white mb-0">
                       "jalan ninjaku" <br />
+
                       If you are a member, please{" "}
                       <NavLink to={`/login`} className="white">
                         login
@@ -167,6 +175,7 @@ class RegisterLayout extends Component {
                           />
                         <IntlMessages id="user.nim" />
                       </Label>
+                      
                       <Label className="form-group has-float-label mb-4">
                         <Select
                           options={this.props.pt.map(({id, nama_pt }) => ({value:id, label:nama_pt }))}
@@ -176,25 +185,47 @@ class RegisterLayout extends Component {
                           id="user.perguruan_tinggi"
                         />
                       </Label>
+                      {this.props.fakultas !== null ? 
                       <Label className="form-group has-float-label mb-4">
-                     <Select 
-                        options={this.props.fakultas.map(({id, nama_fakultas}) => ({value:id, label: nama_fakultas}))}
-                        onChange={this.handleFakultas}
-                        />
-                        <IntlMessages
-                              id="user.fakultas"
+                      <Select 
+                         options={this.props.fakultas.map(({id, nama_fakultas}) => ({value:id, label: nama_fakultas}))}
+                         onChange={this.handleFakultas}
+                         />
+                         <IntlMessages
+                               id="user.fakultas"
+                             />
+                       </Label> :
+                       <div>
+                         <Label className="form-group has-float-label mb-4">
+                          <Select/>
+                            <IntlMessages
+                                    id="user.fakultas"
                             />
-                      </Label> 
+                          </Label>
+                        </div>
+                      }
+                      
+                      {this.props.prodi !== null ?
                       <Label className="form-group has-float-label mb-4">
-                        <Select 
-                          options={this.props.prodi.map(({id, nama_prodi}) => ({value:id, label:nama_prodi}))}
-                          onChange={this.handleProdi} 
+                      <Select 
+                        options={this.props.prodi.map(({id, nama_prodi}) => ({value:id, label:nama_prodi}))}
+                        onChange={this.handleProdi} 
 
-                          />
-                        <IntlMessages
-                          id="user.program_studi"
                         />
+                      <IntlMessages
+                        id="user.program_studi"
+                      />
+                      </Label> :
+                      <div>
+                        <Label className="form-group has-float-label mb-4">
+                      <Select/>
+                      <IntlMessages
+                        id="user.program_studi"
+                      />
                       </Label>
+                      </div>
+                      }
+                      
                       <Label className="form-group has-float-label mb-4">
                       <Input 
                           type="password"  
@@ -232,6 +263,7 @@ class RegisterLayout extends Component {
                         >
                           <IntlMessages id="user.register-button" />
                         </Button>
+                             
                       </div>
                     </Form>
                   </div>
@@ -241,6 +273,8 @@ class RegisterLayout extends Component {
           </div>
         </main>
 
+                
+        
         
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>WARNING!</ModalHeader>
@@ -268,6 +302,7 @@ export default connect(
     loadPt,
     loadFakultas,
     loadProdi,
-    clearForm
+    clearFormFakultas,
+    clearFormProdi
   }
 )(RegisterLayout);

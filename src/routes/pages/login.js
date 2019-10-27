@@ -39,6 +39,14 @@ componentDidCatch(error){
       this.props.loginUser(this.state, this.props.history);
     }
     console.log(this.state.error)
+    if(this.props.msg !== null){
+      this.toggle()
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.msg!==this.props.msg ){
+      this.toggle()
+    }
   }
   handleChange(event){
     this.setState({[event.target.type] : event.target.value})
@@ -70,7 +78,7 @@ componentDidCatch(error){
       <Fragment>
         <div className="kustom" />
         <main>
-          <div className="kustom">            {/* classname container */}
+          <div className="container">            {/* classname container */}
             <Row className="h-100">
               <Colxx xxs="12" md="10" className="mx-auto my-auto ">
                 <Card className="auth-card">
@@ -116,7 +124,7 @@ componentDidCatch(error){
                           // defaultValue={this.state.password}
                         />
                       </Label> 
-                      <a><font color="red">{this.props.msg}</font></a>
+                      {/* <a><font color="red">{this.props.msg}</font></a> */}
                      <hr/>
                       <p className="black">
                           <NavLink to={`/register`} className="blue">
@@ -146,7 +154,11 @@ componentDidCatch(error){
           </div>
         </main>
         }
-        
+        {/* {
+          this.props.msg !== null ?
+          this.toggle :
+          console.log('null')
+        } */}
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} delay="3000">
           <ModalHeader toggle={this.toggle}>WARNING!</ModalHeader>
           <ModalBody>
