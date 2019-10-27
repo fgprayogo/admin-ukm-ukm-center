@@ -19,12 +19,15 @@ import {
   clickOnMobileMenu,
   logoutUser,
   changeLocale,
-  loadProfile
+  loadProfile,
+  getProfile
 } from "Redux/actions";
 
 import { menuHiddenBreakpoint, searchPath,localeOptions } from "Constants/defaultValues";
 
 import notifications from "Data/topnav.notifications.json";
+
+import axios from 'axios'
 
 
 class TopNav extends Component {
@@ -39,11 +42,12 @@ class TopNav extends Component {
     this.removeEventsSearch = this.removeEventsSearch.bind(this);
     this.state = {
       isInFullScreen: false,
-      searchKeyword: ""
+      searchKeyword: "",
     };
   }
   componentDidMount(){
     this.props.loadProfile(this.props.history)
+    this.props.getProfile()
   }
   handleChangeLocale = locale => {
     this.props.changeLocale(locale);
@@ -402,7 +406,8 @@ class TopNav extends Component {
               <DropdownToggle className="p-0" color="empty">
                 <span className="name mr-1">{this.props.profile.email}</span>
                 <span>
-                  <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />
+                  <img alt="Profile" src={this.props.gambar} />     
+                  {/* "/assets/img/profile-pic-l.jpg" */}
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
@@ -423,13 +428,14 @@ class TopNav extends Component {
   }
 }
 
-const mapStateToProps = ({ menu, settings, authUser }) => {
+const mapStateToProps = ({ menu, settings, authUser , mahasiswaReducer}) => {
+  const { gambar } = mahasiswaReducer
   const { containerClassnames, menuClickCount } = menu;
   const { locale } = settings;
   const { profile } = authUser
-  return { containerClassnames, menuClickCount, locale, profile };
+  return { containerClassnames, menuClickCount, locale, profile , gambar };
 };
 export default injectIntl(connect(
   mapStateToProps,
-  { setContainerClassnames, clickOnMobileMenu, logoutUser, changeLocale , loadProfile }
+  { setContainerClassnames, clickOnMobileMenu, logoutUser, changeLocale , loadProfile , getProfile }
 )(TopNav));

@@ -15,7 +15,8 @@ const INIT_STATE = {
     ukm_id:'',
     nama_ukm:'',
     profile_ukm:'',
-    pen:''
+    pen:'',
+    is_oprec: ''
     
   };
 
@@ -37,7 +38,8 @@ const INIT_STATE = {
           ...state, 
           ukm_id: action.payload.id,
           nama_ukm: action.payload.nama_ukm,
-          profile_ukm: action.payload.profile_ukm 
+          profile_ukm: action.payload.profile_ukm, 
+          is_oprec: action.payload.is_oprec
         };
         case POST_PENDAFTAR_UKM:
             return { 

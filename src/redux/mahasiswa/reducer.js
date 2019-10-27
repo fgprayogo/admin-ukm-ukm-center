@@ -12,7 +12,8 @@ const INIT_STATE = {
   email:'',
   nama_pt:'',
   nama_fakultas:'',
-  nama_prodi:''
+  nama_prodi:'',
+  gambar: ''
   };
 
 
@@ -28,7 +29,8 @@ const INIT_STATE = {
           email: action.payload.email,
           nama_pt: action.payload.nama_pt,
           nama_fakultas: action.payload.nama_fakultas,
-          nama_prodi: action.payload.nama_prodi
+          nama_prodi: action.payload.nama_prodi,
+          gambar: "http://127.0.0.1:3333/api/maha/file/"+action.payload.gambar
         };
         case UPDATE_MAHASISWA:
           return { 

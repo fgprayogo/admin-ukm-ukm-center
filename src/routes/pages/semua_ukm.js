@@ -539,7 +539,7 @@ class SemuaUkm extends Component {
                               <Link to={`${this.props.match.url}/${data.id}`}>
                               <CardImg
                                 top
-                                src={"https://lh3.googleusercontent.com/SzfDMr1VUlpz2RT22Zrgd5fIGY0-FkL-eGknRT7D_bXOxuZ_u3MNbB14RmSipqQOEcCOxsOm6TD2fwUoepzMhGSMhWK7s3JAKQel3xv73ZruTw8qddX2Li0shWKL2NF9GsrS3d6jZkCfaICKJOhbqh8ij-sPz30e-5hD6h_SYu3F9puJNvh4ceLnU1epb1aXd8bEWvypKwKh8w58UkCG1fmCQGmBHIzmJjcCkSK_lvjcmFOPhqIfahNvnKhBQvIKgWXrcfdO_L63N2wwqUn-tW-JBSNPqTSAs3MicsfNJXXJY05nqkkr9JbQyeP094HdnSu6nKSE75slvphgSvwR6X0ha2pHMzKvbG1ga1fZk7xrNJMFVnYqXyih_HwW8rKrT4YsiSK7sI-ZxbC2dh_hruT7_b74bj-B8DOBr3kp9P_vOxJMbpJhOMsq_nk34yvfq1jjZhAZe5fQTOgAxkok5vjGCx4qbKX6WADZCfoqcSF2ydnpr3EkX4qfM7WoJ68QXnWpx3i2VyMPHEzWH_HP5ICGMIDNBCqYO5SiPaqQoUiA7knNjKYWmkvHRn7yyiQo7IJZBxa_6g3xeDfDj_bqJgH_0O_GKNsQERrc0ceKKucmKfBp2U2M9f33NhQofQDU8VZx_csSESiShm3VERP-YnVYLsjJNU0sxNJTJAnau8oah11aQzjw=s500-no"}
+                                src={"https://image.freepik.com/free-vector/soccer-stadium-building-with-ticket-office-isometric_1441-3588.jpg"}
                               />
                               </Link>
                             </NavLink>

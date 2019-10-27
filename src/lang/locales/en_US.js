@@ -43,6 +43,7 @@ module.exports = {
   "user.forgot-password": "Forgot Password",
   "user.email": "E-mail",
   "user.password": "Password",
+  "user.password2": "Confirm Password",
   "user.forgot-password-question": "Forget password?",
   "user.fullname": "Full Name",
   "user.login-button": "LOGIN",

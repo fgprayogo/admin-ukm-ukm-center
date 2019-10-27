@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react";
 import IntlMessages from "Util/IntlMessages";
-import { Row, Card, CardTitle, Form, Label, Input, Button } from "reactstrap";
+import { Row, Card, CardTitle, Form, Label, Input, Button , Modal , ModalHeader, ModalBody, ModalFooter , Alert}  from "reactstrap";
 import { NavLink } from "react-router-dom";
 
 import { Colxx } from "Components/CustomBootstrap";
 
 import { connect } from "react-redux";
-import { registerUser , loadPt , loadFakultas , loadProdi } from "Redux/actions";
+import { registerUser , loadPt , loadFakultas , loadProdi , clearForm} from "Redux/actions";
 
 import Select from "react-select";
 
@@ -21,9 +21,13 @@ class RegisterLayout extends Component {
       fakultas_id:"",
       prodi_id:"",
       password: "",
+      password2:"",
+      gambar:"default.png",
 
       fakultas_pt_id :'',
-      prodi_fakultas_id:''
+      prodi_fakultas_id:'',
+
+      modal: false
 
     
     };
@@ -34,6 +38,12 @@ class RegisterLayout extends Component {
     this.handleProdi = this.handleProdi.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.toggle = this.toggle.bind(this);
+  }
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
   }
   onUserRegister() {
     // if (this.state.email !== "" && this.state.password !== "") {
@@ -53,17 +63,22 @@ class RegisterLayout extends Component {
   componentDidMount() {
     document.body.classList.add("background");
     this.props.loadPt()
-    this.props.loadFakultas()
-    this.props.loadProdi()
+    // this.props.loadFakultas()
+    // this.props.loadProdi()
 }
   componentWillUnmount() {
     document.body.classList.remove("background");
   }
   handlePt(value){
+    this.props.clearForm()
     this.setState({pt_id:value.value})
+    this.props.loadFakultas({'pt_id':`${value.value}`})
   }
+ 
   handleFakultas(value){
     this.setState({fakultas_id:value.value , fakultas_pt_id:value.pt})
+    this.props.loadProdi({'fakultas_id':`${value.value}`})
+
   }
   handleProdi(value){
     this.setState({prodi_id:value.value , prodi_fakultas_id:value.fakultas})
@@ -75,19 +90,24 @@ class RegisterLayout extends Component {
   }
   handleSubmit(event){
     event.preventDefault();
+
     if(this.state.pt_id == this.state.fakultas_pt_id 
       && this.state.fakultas_id == this.state.prodi_fakultas_id 
-      && this.state.nama !=="" && this.state.email !== "" && this.state.nim !== "" && this.state.password !== "" ){
+      && this.state.nama !=="" && this.state.email !== "" && this.state.nim !== "" && this.state.password !== "" 
+      && this.password == this.password2){
 
       this.props.registerUser(this.state, this.props.history)
       
       console.log('sip')
     }else {
+      this.toggle()
       console.log('harus sama')
     }
     console.log(this.state)
     
   }
+
+
 
   render() {
     return (
@@ -158,7 +178,7 @@ class RegisterLayout extends Component {
                       </Label>
                       <Label className="form-group has-float-label mb-4">
                      <Select 
-                        options={this.props.fakultas.map(({id, nama_fakultas , pt_id , nama_pt}) => ({value:id, label: nama_pt+ ' - '+ nama_fakultas , pt:pt_id}))}
+                        options={this.props.fakultas.map(({id, nama_fakultas}) => ({value:id, label: nama_fakultas}))}
                         onChange={this.handleFakultas}
                         />
                         <IntlMessages
@@ -167,7 +187,7 @@ class RegisterLayout extends Component {
                       </Label> 
                       <Label className="form-group has-float-label mb-4">
                         <Select 
-                          options={this.props.prodi.map(({id, nama_prodi, fakultas_id , nama_pt}) => ({value:id, label:nama_pt + ' - ' + nama_prodi, fakultas:fakultas_id}))}
+                          options={this.props.prodi.map(({id, nama_prodi}) => ({value:id, label:nama_prodi}))}
                           onChange={this.handleProdi} 
 
                           />
@@ -187,6 +207,22 @@ class RegisterLayout extends Component {
                           defaultValue={this.state.password}
                         />
                       </Label>
+                      <Label className="form-group has-float-label mb-4">
+                      <Input 
+                          type="password"  
+                          name="password2"
+                          value={this.state.password2}
+                          onChange={this.handleChange}
+                          />
+                         {this.state.password != this.state.password2 ? 
+                        <a><font color="red">Password don't match!</font></a> :
+                        <div/>
+                        }
+                        <IntlMessages
+                          id="user.password2"
+                          defaultValue={this.state.password2}
+                        />
+                      </Label>
                       <div className="d-flex justify-content-end align-items-center">
                         <Button
                           color="primary"
@@ -204,6 +240,18 @@ class RegisterLayout extends Component {
             </Row>
           </div>
         </main>
+
+        
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggle}>WARNING!</ModalHeader>
+          <ModalBody>
+              Pastikan data Anda benar!
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmit}>Ok</Button>
+
+          </ModalFooter>
+        </Modal>
       </Fragment>
     );
   }
@@ -219,6 +267,7 @@ export default connect(
     registerUser,
     loadPt,
     loadFakultas,
-    loadProdi
+    loadProdi,
+    clearForm
   }
 )(RegisterLayout);

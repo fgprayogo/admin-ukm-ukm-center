@@ -28,7 +28,8 @@ const Pages = ({ match }) => (
             <Route path={`${match.url}/pendaftaran/:id`} component={profileMahasiswa} />             
             <Route path={`${match.url}/semua_ukm`} exact component={semuaUkm} />            
             <Route path={`${match.url}/semua_ukm/:id`} component={profileUkm} />            
-            <Route path={`${match.url}/pendaftaran_dibuka`} component={pendaftaranDibuka} />            
+            <Route path={`${match.url}/pendaftaran_dibuka`} exact component={pendaftaranDibuka} />            
+            <Route path={`${match.url}/pendaftaran_dibuka/:id`} component={profileUkm} />            
             <Route path={`${match.url}/pendaftaran_ditutup`} component={pendataranDitutup} />            
             <Route path={`${match.url}/anggota`} component={anggota} />            
             <Route path={`${match.url}/alumni`} component={alumni} />            

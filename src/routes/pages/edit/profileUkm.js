@@ -127,7 +127,11 @@ componentDidUpdate(){
                             <CardSubtitle className="mb-1">Deskripsi UKM</CardSubtitle>
                           </NavLink>
                           <CardText className="text-muted text-small mb-4">{this.props.profile_ukm}</CardText>
+                          {this.props.is_oprec ?
                           <Button outline size="sm" color="primary" onClick={this.toggle}>Begabung!</Button>
+                          : <div/>
+                          }
+                          
                         </div>
                       </CardBody>
                 </Card>
@@ -153,8 +157,8 @@ componentDidUpdate(){
 }
 
 const mapStateToProps = ({ ukmReducer }) => {
-    const { id_ukm, nama_ukm, profile_ukm} = ukmReducer;
-    return { id_ukm, nama_ukm, profile_ukm};
+    const { id_ukm, nama_ukm, profile_ukm , is_oprec} = ukmReducer;
+    return { id_ukm, nama_ukm, profile_ukm, is_oprec};
   };
 
 export default connect(

@@ -14,7 +14,7 @@ class LoginLayout extends Component {
     this.state = {
       email: "",
       password: "",
-      error:''
+      error:'',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,13 +68,13 @@ componentDidCatch(error){
   render() {
     return (
       <Fragment>
-        <div className="fixed-background" />
+        <div className="kustom" />
         <main>
-          <div className="container">
+          <div className="kustom">            {/* classname container */}
             <Row className="h-100">
-              <Colxx xxs="12" md="10" className="mx-auto my-auto">
+              <Colxx xxs="12" md="10" className="mx-auto my-auto ">
                 <Card className="auth-card">
-                  <div className="position-relative image-side ">
+                  <div className="position-relative image-side "> {/* iki diotak atik */}
                     <p className="text-white h2">UKM Center</p>
                     {
                       this.props.user ? <div>Authorized</div> : <div>Ndi tokene</div>
@@ -115,7 +115,9 @@ componentDidCatch(error){
                           id="user.password"
                           // defaultValue={this.state.password}
                         />
-                      </Label>
+                      </Label> 
+                      <a><font color="red">{this.props.msg}</font></a>
+                     <hr/>
                       <p className="black">
                           <NavLink to={`/register`} className="blue">
                             Don't Have Account? Register
@@ -129,7 +131,7 @@ componentDidCatch(error){
                           color="primary"
                           className="btn-shadow"
                           size="lg"
-                          onClick={this.toggle}
+                          // onClick={this.toggle}
                           value="submit"
                           type="submit"
                         >
@@ -137,14 +139,14 @@ componentDidCatch(error){
                         </Button>
                       </div>
                     </Form>
-                   
                   </div>
                 </Card>
               </Colxx>
             </Row>
           </div>
         </main>
-
+        }
+        
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} delay="3000">
           <ModalHeader toggle={this.toggle}>WARNING!</ModalHeader>
           <ModalBody>
@@ -161,7 +163,7 @@ componentDidCatch(error){
 }
 const mapStateToProps = ({ authUser }) => {
   const { user, loading, profile, msg } = authUser;
-  return { user, loading, profile , msg};
+  return { user, loading, profile , msg };
 };
 
 export default connect(

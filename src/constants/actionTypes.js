@@ -13,6 +13,7 @@ export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOAD_PT = 'LOAD_PT';
 export const LOAD_FAKULTAS = 'LOAD_FAKULTAS';
 export const LOAD_PRODI = 'LOAD_PRODI'
+export const CLEAR_FORM = 'CLEAR_FORM'
 
 
 /* UKM */

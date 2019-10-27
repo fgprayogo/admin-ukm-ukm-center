@@ -20,7 +20,12 @@ import {
   CustomInput,
   CardHeader,
   CardImg,
-  CardSubtitle, CardText
+  CardSubtitle, CardText , Table,
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
 } from "reactstrap";
 import Select from "react-select";
 import CustomSelectInput from "Components/CustomSelectInput";
@@ -57,6 +62,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-table/react-table.css";
 
+import axios from 'axios'
 
 
 import { connect } from "react-redux";
@@ -69,7 +75,6 @@ class Profile extends Component {
 
 
     this.state = {
-      
     };
   }
 
@@ -79,6 +84,7 @@ componentDidMount(){
 
   render() {
     const {messages} = this.props.intl;
+    
     return (
       <Fragment>
         <Row>
@@ -99,95 +105,50 @@ componentDidMount(){
                     <Card className="sm-100">
                       <CardBody>
                         <div className="text-center">
-                          <CardImg top src="/assets/img/profile-pic-l.jpg" alt="Card image cap" className="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" />
+                          
+                          <CardImg top src={this.props.gambar}
+                              alt="Card image cap" 
+                              className="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" />
                           <NavLink to="/app/ui/cards">
                             {/* <CardSubtitle className="mb-1 text-big">Nama UKM</CardSubtitle> */}
                           </NavLink>
                           <div align="left">
-                            <Form>
-                            <FormGroup row>
-                              <Label for="emailHorizontal" sm={2}>
-                                Nama 
-                              </Label>
-                              <Colxx sm={10}>
-                                <Input disabled
-                                  type="text"
-                                  name="nama"
-                                  // value={this.state.nama}
-                                  // onChange={this.onChange}
-                                  // placeholder="edit"
-                                  defaultValue={this.props.nama}
-                                />
-                              </Colxx>
-                            </FormGroup>
-                            <FormGroup row>
-                              <Label for="emailHorizontal" sm={2}>
-                                NIM
-                              </Label>
-                              <Colxx sm={10}>
-                                <Input disabled
-                                  type="text"
-                                  name="nim"
-                                  // value={this.state.nim}
-                                  // onChange={this.onChange}
-                                  // placeholder="edit"
-                                  defaultValue={this.props.nim}
-                                />
-                              </Colxx>
-                            </FormGroup>
-                            <FormGroup row>
-                              <Label for="emailHorizontal" sm={2}>
-                                Email
-                              </Label>
-                              <Colxx sm={10}>
-                                <Input disabled
-                                  type="text"
-                                  name="email"
-                                  // placeholder="edit"
-                                  defaultValue={this.props.email}
-                                />
-                              </Colxx>
-                            </FormGroup>
-                            <FormGroup row>
-                              <Label for="emailHorizontal" sm={2}>
-                                Perguruan Tinggi
-                              </Label>
-                              <Colxx sm={10}>
-                                <Input disabled
-                                  type="text"
-                                  name="nama_pt"
-                                  // placeholder="edit"
-                                  defaultValue={this.props.nama_pt}
-                                />
-                              </Colxx>
-                            </FormGroup>
-                            <FormGroup row>
-                              <Label for="emailHorizontal" sm={2}>
-                                Fakultas
-                              </Label>
-                              <Colxx sm={10}>
-                                <Input disabled
-                                  type="text"
-                                  name="nama_fakultas"
-                                  // placeholder="edit"
-                                  defaultValue={this.props.nama_fakultas}
-                                />
-                              </Colxx>
-                            </FormGroup>
-                            <FormGroup row>
-                              <Label for="emailHorizontal" sm={2}>
-                                Program Studi
-                              </Label>
-                              <Colxx sm={10}>
-                                <Input disabled
-                                  type="text"
-                                  name="nama_prodi"
-                                  // placeholder="edit"
-                                  defaultValue={this.props.nama_prodi}
-                                />
-                              </Colxx>
-                            </FormGroup>
-                            </Form>
+                          <Table hover>
+                            {/* <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                              </tr>
+                            </thead> */}
+                            <tbody>
+                              <tr>
+                                <th scope="row">Nama</th>
+                                <td>{this.props.nama}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">NIM</th>
+                                <td>{this.props.nim}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Email</th>
+                                <td>{this.props.email}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Perguruan Tinggi</th>
+                                <td>{this.props.nama_pt}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Fakultas</th>
+                                <td>{this.props.nama_fakultas}</td>
+                              </tr>
+                              <tr>
+                                <th scope="row">Program Studi</th>
+                                <td>{this.props.nama_prodi}</td>
+                              </tr>
+                            </tbody>
+                          </Table>
                           </div>
                           <Link to={`${this.props.match.url}/edit:${this.props.id}`}>
                           <Button outline size="sm" color="primary">
@@ -201,6 +162,8 @@ componentDidMount(){
         </Colxx>
       </Row>
 
+      
+
         
       </Fragment>
     );
@@ -208,8 +171,8 @@ componentDidMount(){
 }
 
 const mapStateToProps = ({ mahasiswaReducer }) => {
-  const {id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi} = mahasiswaReducer;
-  return {id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi};
+  const {id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar } = mahasiswaReducer;
+  return {id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar };
 };
 
 export default connect(

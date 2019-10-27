@@ -20,7 +20,7 @@ import {
   CustomInput,
   CardHeader,
   CardImg,
-  CardSubtitle, CardText, Modal , ModalHeader, ModalBody, ModalFooter
+  CardSubtitle, CardText, Modal , ModalHeader, ModalBody, ModalFooter ,FormText
 } from "reactstrap";
 import Select from "react-select";
 import CustomSelectInput from "Components/CustomSelectInput";
@@ -62,6 +62,8 @@ import "react-table/react-table.css";
 import { connect } from "react-redux";
 import { getProfile , updateProfile } from "Redux/actions";
 
+import axios from 'axios'
+
 
 class ProfileEdit extends Component {
   constructor(props) {
@@ -70,11 +72,13 @@ class ProfileEdit extends Component {
 
     this.state = {
       nama: this.props.nama,
-      nim:this.props.nim
+      nim:this.props.nim,
+      selectedFile: null
     };
     this.toggle = this.toggle.bind(this);
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.uploadGambar = this.uploadGambar.bind(this);
 
   }
 
@@ -94,8 +98,31 @@ handleSubmit(event,history){
   event.preventDefault();
   this.props.updateProfile(this.state, this.props.history)
   console.log(this.state)
-  history.push('/')
+
+
+  console.log(this.state.selectedFile)
+  const fd = new FormData()
+  fd.append('pic', this.state.selectedFile)
+  console.log(fd)
+  const token = localStorage.getItem("token")
+    const apiToken = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    }
+ axios.put('http://127.0.0.1:3333/api/maha/foto' , fd , apiToken)
+    .then(res =>
+       console.log(res)
+     ) 
+
+    history.push('/')
 }
+uploadGambar(event){
+  this.setState({
+    selectedFile: event.target.files[0]
+  })
+}
+
 
   render() {
     const {messages} = this.props.intl;
@@ -128,9 +155,26 @@ handleSubmit(event,history){
                 <CardTitle>
                   Edit Profile
                 </CardTitle>
+                <CardImg top src={this.props.gambar}
+                alt="Card image cap" 
+                className="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" />
+                
                 </div>
                 <Form>
                   <FormGroup row>
+                  <Label for="emailHorizontal" sm={2}>
+                      Foto Profile 
+                    </Label>
+                    <Colxx sm={10}>
+                    <input 
+                      // style={{display:'none'}}
+                      type="file" 
+                      onChange={this.uploadGambar}
+                      // ref={fileInput => this.fileInput = fileInput}
+                      />
+                      {/* <button onClick={() => this.fileInput.click()}>Edit Foto</button>
+                      <button onClick={this.fileUpload}>Upload</button> */}
+                    </Colxx>
                     <Label for="emailHorizontal" sm={2}>
                       Nama 
                     </Label>
@@ -300,8 +344,8 @@ handleSubmit(event,history){
 }
 
 const mapStateToProps = ({ mahasiswaReducer }) => {
-  const { id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi } = mahasiswaReducer;
-  return { id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi };
+  const { id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar } = mahasiswaReducer;
+  return { id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar };
 };
 
 export default connect(

@@ -8,8 +8,8 @@ import {
     LOGIN_FAILED,
     LOAD_PT,
     LOAD_FAKULTAS,
-    LOAD_PRODI
-
+    LOAD_PRODI,
+    CLEAR_FORM
   } from "Constants/actionTypes";
   
   const INIT_STATE = {
@@ -19,7 +19,8 @@ import {
     msg:'',
     pt:[],
     fakultas:[],
-    prodi:[]
+    prodi:[],
+    msg:'',
   };
   
   export default (state = INIT_STATE, action) => {
@@ -33,12 +34,13 @@ import {
       case LOGIN_FAILED:
         return {
           ...state,
-          msg: 'Please check your email and password'
+          field: action.payload,
+          msg: 'Periksa kembali E-mail dan Password Anda '
         }
       case LOAD_PT:
         return { 
           ...state, 
-          pt : action.payload.pt
+          pt : action.payload.pt,
         };
       case LOAD_FAKULTAS:
           return { 
@@ -49,6 +51,12 @@ import {
           return { 
             ...state, 
             prodi : action.payload.prodi
+          };
+      case CLEAR_FORM:
+          return { 
+            ...state, 
+            fakultas : [],
+            prodi : []
           };
       case PROFILE:
         return {

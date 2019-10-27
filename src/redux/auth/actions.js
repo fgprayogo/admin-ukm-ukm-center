@@ -8,56 +8,85 @@ import {
   LOGIN_FAILED,
   LOAD_PT,
   LOAD_FAKULTAS,
-  LOAD_PRODI
+  LOAD_PRODI,
+  CLEAR_FORM
 } from 'Constants/actionTypes';
 import axios from 'axios'
+import { async } from 'q';
 
 
 
-export function loginUser ({email, password}, history) {
+export const loginUser = ({email, password}, history) => async(dispatch) => {
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
     }
-    // const body = JSON.stringify({email, password})
+  }
+  // const body = JSON.stringify({email, password})
+  
+  try{
+    const res = await axios.post('http://127.0.0.1:3333/api/maha/login', {email, password}, config)
+    dispatch({
+      type: LOGIN_USER,
+      payload: res.data
+      })
+    localStorage.setItem("token", res.data.token)
+    history.push('/')
+  }catch(e){
+      dispatch({
+        type: LOGIN_FAILED
+      });
     
-    return async (dispatch) => {  
-      
-        const res = await axios.post('http://127.0.0.1:3333/api/maha/login', {email, password}, config)
-        dispatch({
-          type: LOGIN_USER,
-          payload: res.data
-          })
-        localStorage.setItem("token", res.data.token)
-        history.push('/')
-
-        
-      // axios.post('http://localhost:3333/api/admin/login', {email, password}, config)
-      //   .then( res => 
-      //     dispatch({
-      //       type: LOGIN_USER,
-      //       payload: res.data
-      //       },
-      //       localStorage.setItem("token", res.data.token)
-      //     )
-      //   ).catch( res =>
-      //     dispatch({
-      //       type: LOGIN_FAILED,
-      //       payload: res.data
-      //     })
-      //   )
-
-      //   history.push('/')
-        
-
-
-}
-    
-    
+  }  
 
 };
+
+
+// export function loginUser ({email, password}, history) {
+
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     }
+//     // const body = JSON.stringify({email, password})
+    
+//     return async (dispatch) => {  
+      
+//         const res = await axios.post('http://127.0.0.1:3333/api/maha/login', {email, password}, config)
+//         dispatch({
+//           type: LOGIN_USER,
+//           payload: res.data
+//           })
+//         localStorage.setItem("token", res.data.token)
+//         history.push('/')
+
+        
+//       // axios.post('http://localhost:3333/api/admin/login', {email, password}, config)
+//       //   .then( res => 
+//       //     dispatch({
+//       //       type: LOGIN_USER,
+//       //       payload: res.data
+//       //       },
+//       //       localStorage.setItem("token", res.data.token)
+//       //     )
+//       //   ).catch( res =>
+//       //     dispatch({
+//       //       type: LOGIN_FAILED,
+//       //       payload: res.data
+//       //     })
+//       //   )
+
+//       //   history.push('/')
+        
+
+
+// }
+    
+    
+
+// };
 
 export function loadProfile (history){
  
@@ -84,8 +113,8 @@ export const loginUserSuccess = (user) => ({
   payload: user
 });
 
-export function registerUser ({nama, email, nim, pt_id, fakultas_id, prodi_id, password}, history) {
-  const body = {nama, email, nim, pt_id, fakultas_id, prodi_id, password}
+export function registerUser ({nama, email, nim, pt_id, fakultas_id, prodi_id, password , gambar}, history) {
+  const body = {nama, email, nim, pt_id, fakultas_id, prodi_id, password , gambar}
 
   const config = {
     headers: {
@@ -159,7 +188,7 @@ export function loadPt (history){
   }
 }
 
-export function loadFakultas (history){
+export function loadFakultas ({pt_id}){
  
   return async (dispatch) => {
      //default token
@@ -169,7 +198,8 @@ export function loadFakultas (history){
          Authorization: `Bearer ${token}`
        }
      }
-     const res = await axios.get('http://localhost:3333/api/maha/fakultas')
+
+     const res = await axios.get(`http://localhost:3333/api/maha/pt/${pt_id}`, )
      dispatch({
        type: LOAD_FAKULTAS,
        payload: res.data
@@ -179,7 +209,7 @@ export function loadFakultas (history){
   }
 }
 
-export function loadProdi (history){
+export function loadProdi ({fakultas_id}){
  
   return async (dispatch) => {
      //default token
@@ -189,7 +219,7 @@ export function loadProdi (history){
          Authorization: `Bearer ${token}`
        }
      }
-     const res = await axios.get('http://localhost:3333/api/maha/prodi')
+     const res = await axios.get(`http://localhost:3333/api/maha/fakultas/${fakultas_id}`)
      dispatch({
        type: LOAD_PRODI,
        payload: res.data
@@ -198,3 +228,15 @@ export function loadProdi (history){
     // localStorage.setItem("profile", res.data)
   }
 }
+
+export function clearForm (){
+  return async (dispatch) => {
+    dispatch({
+      type: CLEAR_FORM,
+      payload: ''
+      })
+  }
+
+
+    // localStorage.setItem("profile", res.data)
+  }
