@@ -254,6 +254,11 @@ class RegisterLayout extends Component {
                           defaultValue={this.state.password2}
                         />
                       </Label>
+                      <p className="black">
+                          <NavLink to={`/login`} className="blue">
+                            Already have an Acount? Login Here!
+                          </NavLink>
+                        </p>
                       <div className="d-flex justify-content-end align-items-center">
                         <Button
                           color="primary"

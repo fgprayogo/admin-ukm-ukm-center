@@ -125,7 +125,6 @@ componentDidCatch(error){
                         />
                       </Label> 
                       {/* <a><font color="red">{this.props.msg}</font></a> */}
-                     <hr/>
                       <p className="black">
                           <NavLink to={`/register`} className="blue">
                             Don't Have Account? Register

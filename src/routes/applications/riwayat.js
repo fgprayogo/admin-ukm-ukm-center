@@ -391,11 +391,6 @@ class Riwayat extends Component {
           </MenuItem>
         </ContextMenu>
 
-        {/* <Select 
-          options={this.props.pendaftaran.map(({id, nama}) => ({value:id, label:nama}))}
-          onChange={this.handleSelect}
-          /> */}
-
 
       </Fragment>
     );
