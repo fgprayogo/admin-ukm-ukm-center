@@ -87,12 +87,10 @@ class LoginLayout extends Component {
             <Colxx xs="6" className="mx-auto my-auto">
             <Jumbotron>
                   <h1 className="display-3">UKM Center</h1>
-                  <p className="lead">Segera bergabung bersama kami!</p>
-                  <hr className="my-2" />
-                  <p>Temukan bakat terbaikmu!</p>
+                  <p className="lead">Kelola UKM mu dengan cara modern!</p>
                   <p className="lead">
                     <NavLink to="/login">
-                      <Button color="primary">Join Now</Button>
+                      <Button color="primary">Masuk</Button>
                     </NavLink>
                   </p>
                 </Jumbotron>

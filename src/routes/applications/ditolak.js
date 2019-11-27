@@ -320,14 +320,14 @@ class Ditolak extends Component {
                         <div className="pl-2 d-flex flex-grow-1 min-width-zero">
                           <div className="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                             <NavLink
-                              to={`${this.props.match.url}/${data.id}`}
+                              to={{pathname:`${this.props.match.url}/${data.id}`,state:data.pendaftaran_id}}
                               className="w-40 w-sm-100"
                             >
                               <p className="list-item-heading mb-1 truncate">
-                                {data.nama_ukm}
+                                {data.nama}
                               </p>
                             </NavLink>
-                            <p className="mb-1 text-muted text-small w-15 w-sm-100">
+                            {/* <p className="mb-1 text-muted text-small w-15 w-sm-100">
                               kategori
                             </p>
                             <p className="mb-1 text-muted text-small w-15 w-sm-100">
@@ -335,9 +335,9 @@ class Ditolak extends Component {
                             </p>
                             <div className="w-15 w-sm-100">
                               
-                            </div>
+                            </div> */}
                           </div>
-                          <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
+                          {/* <div className="custom-control custom-checkbox pl-1 align-self-center pr-4">
                             <CustomInput
                               className="itemCheck mb-0"
                               type="checkbox"
@@ -348,7 +348,7 @@ class Ditolak extends Component {
                               onChange={() => {}}
                               label=""
                             />
-                          </div>
+                          </div> */}
                         </div>
                       </Card>
                     </ContextMenuTrigger>
@@ -358,11 +358,11 @@ class Ditolak extends Component {
               }
             )}
            
-            <Pagination
+            {/* <Pagination
               currentPage={this.state.currentPage}
               totalPage={this.state.totalPage}
               onChangePage={i => this.onChangePage(i)}
-            />
+            /> */}
             
           </Row>
         </div>

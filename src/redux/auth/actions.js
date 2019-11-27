@@ -27,7 +27,7 @@ export const loginUser = ({email, password}, history) => async(dispatch) => {
   // const body = JSON.stringify({email, password})
   
   try{
-    const res = await axios.post('http://127.0.0.1:3333/api/maha/login', {email, password}, config)
+    const res = await axios.post('http://127.0.0.1:3333/api/admin/login', {email, password}, config)
     dispatch({
       type: LOGIN_USER,
       payload: res.data
@@ -99,7 +99,7 @@ export function loadProfile (history){
            Authorization: `Bearer ${token}`
          }
        }
-       const res = await axios.get('http://localhost:3333/api/maha/profile', apiToken)
+       const res = await axios.get('http://localhost:3333/api/admin/profile', apiToken)
        dispatch({
          type: PROFILE,
          payload: res.data
@@ -156,7 +156,7 @@ const apiToken = {
   }
   
   return async (dispatch) => {
-    const res = await axios.post('http://localhost:3333/api/maha/logout', data, apiToken)
+    const res = await axios.post('http://localhost:3333/api/admin/logout', data, apiToken)
 
     dispatch({
       type: LOGOUT_USER,

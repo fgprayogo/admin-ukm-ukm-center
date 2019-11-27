@@ -270,7 +270,7 @@ class Sidebar extends Component {
                 </NavItem>
 
                   {/* pages  */}
-                <NavItem
+                {/* <NavItem
                   className={classnames({
                     active: ((this.state.selectedParentMenu == "pages" && this.state.viewingParentMenu == "") || this.state.viewingParentMenu == "pages")
                   })}
@@ -282,7 +282,7 @@ class Sidebar extends Component {
                     <i className="iconsmind-Digital-Drawing" />{" "}
                     <IntlMessages id="menu.pages" />
                   </NavLink>
-                </NavItem>
+                </NavItem> */}
                 
                 {/* aplications  */}
                 <NavItem

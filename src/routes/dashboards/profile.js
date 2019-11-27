@@ -68,7 +68,6 @@ import axios from 'axios'
 import { connect } from "react-redux";
 import { getProfile } from "Redux/actions";
 
-
 class Profile extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +83,6 @@ componentDidMount(){
 
   render() {
     const {messages} = this.props.intl;
-    
     return (
       <Fragment>
         <Row>
@@ -109,6 +107,7 @@ componentDidMount(){
                           <CardImg top src={this.props.gambar}
                               alt="Card image cap" 
                               className="img-thumbnail border-0 rounded-circle mb-4 list-thumbnail" />
+
                           <NavLink to="/app/ui/cards">
                             {/* <CardSubtitle className="mb-1 text-big">Nama UKM</CardSubtitle> */}
                           </NavLink>
@@ -124,12 +123,12 @@ componentDidMount(){
                             </thead> */}
                             <tbody>
                               <tr>
-                                <th scope="row">Nama</th>
+                                <th scope="row">Nama UKM</th>
                                 <td>{this.props.nama}</td>
                               </tr>
                               <tr>
-                                <th scope="row">NIM</th>
-                                <td>{this.props.nim}</td>
+                                <th scope="row">Deskripsi UKM</th>
+                                <td>{this.props.deskripsi_ukm}</td>
                               </tr>
                               <tr>
                                 <th scope="row">Email</th>
@@ -138,14 +137,6 @@ componentDidMount(){
                               <tr>
                                 <th scope="row">Perguruan Tinggi</th>
                                 <td>{this.props.nama_pt}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Fakultas</th>
-                                <td>{this.props.nama_fakultas}</td>
-                              </tr>
-                              <tr>
-                                <th scope="row">Program Studi</th>
-                                <td>{this.props.nama_prodi}</td>
                               </tr>
                             </tbody>
                           </Table>
@@ -170,9 +161,9 @@ componentDidMount(){
   }
 }
 
-const mapStateToProps = ({ mahasiswaReducer }) => {
-  const {id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar } = mahasiswaReducer;
-  return {id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar };
+const mapStateToProps = ({ adminUkmReducer }) => {
+  const {id, nama , deskripsi_ukm , email ,nama_pt, gambar } = adminUkmReducer;
+  return {id, nama , deskripsi_ukm , email ,nama_pt, gambar };
 };
 
 export default connect(

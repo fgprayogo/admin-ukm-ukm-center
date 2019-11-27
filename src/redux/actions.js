@@ -2,7 +2,7 @@ export * from './menu/actions';
 export * from './settings/actions';
 export * from './auth/actions';
 export * from './pendaftaran/actions';
-export * from './mahasiswa/actions'
+export * from './admin-ukm/actions'
 export * from './ukm/actions'
 
 

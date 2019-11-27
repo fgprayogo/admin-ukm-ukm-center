@@ -72,7 +72,7 @@ class ProfileEdit extends Component {
 
     this.state = {
       nama: this.props.nama,
-      nim:this.props.nim,
+      deskripsi_ukm: this.props.deskripsi_ukm,
       selectedFile: null
     };
     this.toggle = this.toggle.bind(this);
@@ -91,7 +91,7 @@ toggle() {
 componentDidMount(){
   this.props.getProfile()
 }
-onChange(){
+onChange(event){
   this.setState({[event.target.name] : event.target.value})
 }
 handleSubmit(event,history){
@@ -110,11 +110,12 @@ handleSubmit(event,history){
         Authorization: `Bearer ${token}`,
       }
     }
- axios.put('http://127.0.0.1:3333/api/maha/foto' , fd , apiToken)
+  if(this.state.selectedFile !== null){
+    axios.put('http://127.0.0.1:3333/api/admin/foto' , fd , apiToken)
     .then(res =>
        console.log(res)
      ) 
-
+  }
     history.push('/')
 }
 uploadGambar(event){
@@ -192,13 +193,13 @@ uploadGambar(event){
                   </FormGroup>
                   <FormGroup row>
                     <Label for="emailHorizontal" sm={2}>
-                      NIM
+                      Deskripsi UKM
                     </Label>
                     <Colxx sm={10}>
                       <Input 
-                        type="text"
-                        name="nim"
-                        value={this.state.nim}
+                        type="textarea"
+                        name="deskripsi_ukm"
+                        value={this.state.deskripsi_ukm}
                         onChange={this.onChange}
                         // placeholder="edit"
                         // defaultValue={this.props.nim}
@@ -228,32 +229,6 @@ uploadGambar(event){
                         name="nama_pt"
                         // placeholder="edit"
                         defaultValue={this.props.nama_pt}
-                      />
-                    </Colxx>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="emailHorizontal" sm={2}>
-                      Fakultas
-                    </Label>
-                    <Colxx sm={10}>
-                      <Input disabled
-                        type="text"
-                        name="nama_fakultas"
-                        // placeholder="edit"
-                        defaultValue={this.props.nama_fakultas}
-                      />
-                    </Colxx>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Label for="emailHorizontal" sm={2}>
-                      Program Studi
-                    </Label>
-                    <Colxx sm={10}>
-                      <Input disabled
-                        type="text"
-                        name="nama_prodi"
-                        // placeholder="edit"
-                        defaultValue={this.props.nama_prodi}
                       />
                     </Colxx>
                   </FormGroup>
@@ -343,9 +318,9 @@ uploadGambar(event){
   }
 }
 
-const mapStateToProps = ({ mahasiswaReducer }) => {
-  const { id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar } = mahasiswaReducer;
-  return { id, nama , nim , email ,nama_pt, nama_fakultas , nama_prodi , gambar };
+const mapStateToProps = ({ adminUkmReducer }) => {
+  const { id, nama , deskripsi_ukm , email ,nama_pt, nama_fakultas , nama_prodi , gambar } = adminUkmReducer;
+  return { id, nama , deskripsi_ukm , email ,nama_pt, nama_fakultas , nama_prodi , gambar };
 };
 
 export default connect(

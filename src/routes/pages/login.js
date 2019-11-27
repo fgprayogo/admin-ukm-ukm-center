@@ -83,12 +83,10 @@ componentDidCatch(error){
               <Colxx xxs="12" md="10" className="mx-auto my-auto ">
                 <Card className="auth-card">
                   <div className="position-relative image-side "> {/* iki diotak atik */}
-                    <p className="text-white h2">UKM Center</p>
-                    {
-                      this.props.user ? <div>Authorized</div> : <div>Ndi tokene</div>
-                    }
+                    <p className="text-white h2"></p>
+                    
                     <p className="white">
-                      "Karena aku punya jalan ninjaku"
+                      
                       <br />
                     </p>
                   </div>

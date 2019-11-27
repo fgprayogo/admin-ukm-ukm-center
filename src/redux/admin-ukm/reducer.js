@@ -8,7 +8,7 @@ const INIT_STATE = {
   data:[],
   id:'',
   nama:'',
-  nim:'',
+  deskripsi_ukm:'',
   email:'',
   nama_pt:'',
   nama_fakultas:'',
@@ -23,14 +23,14 @@ const INIT_STATE = {
         return { 
           ...state, 
           data: action.payload,
-          id : action.payload.id,
-          nama :action.payload.nama,
-          nim : action.payload.nim,
-          email: action.payload.email,
-          nama_pt: action.payload.nama_pt,
+          id : action.payload.profile.id,
+          nama :action.payload.data_ukm[0].nama_ukm,
+          deskripsi_ukm : action.payload.data_ukm[0].deskripsi_ukm,
+          email: action.payload.profile.email,
+          nama_pt: action.payload.data_ukm[0].nama_pt,
           nama_fakultas: action.payload.nama_fakultas,
           nama_prodi: action.payload.nama_prodi,
-          gambar: "http://127.0.0.1:3333/api/maha/file/"+action.payload.gambar
+          gambar: "http://127.0.0.1:3333/api/maha/file/"+action.payload.profile.gambar
         };
         case UPDATE_MAHASISWA:
           return { 

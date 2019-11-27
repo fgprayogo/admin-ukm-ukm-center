@@ -19,7 +19,6 @@ import {
   clickOnMobileMenu,
   logoutUser,
   changeLocale,
-  loadProfile,
   getProfile
 } from "Redux/actions";
 
@@ -46,7 +45,6 @@ class TopNav extends Component {
     };
   }
   componentDidMount(){
-    this.props.loadProfile(this.props.history)
     this.props.getProfile()
   }
   handleChangeLocale = locale => {
@@ -408,6 +406,9 @@ class TopNav extends Component {
                 <span>
                   <img alt="Profile" src={this.props.gambar} />     
                   {/* "/assets/img/profile-pic-l.jpg" */}
+
+                                    {/* <img alt="Profile" src="/assets/img/profile-pic-l.jpg" />      */}
+                  
                 </span>
               </DropdownToggle>
               <DropdownMenu className="mt-3" right>
@@ -428,8 +429,8 @@ class TopNav extends Component {
   }
 }
 
-const mapStateToProps = ({ menu, settings, authUser , mahasiswaReducer}) => {
-  const { gambar } = mahasiswaReducer
+const mapStateToProps = ({ menu, settings, authUser , adminUkmReducer}) => {
+  const { gambar } = adminUkmReducer
   const { containerClassnames, menuClickCount } = menu;
   const { locale } = settings;
   const { profile } = authUser
@@ -437,5 +438,5 @@ const mapStateToProps = ({ menu, settings, authUser , mahasiswaReducer}) => {
 };
 export default injectIntl(connect(
   mapStateToProps,
-  { setContainerClassnames, clickOnMobileMenu, logoutUser, changeLocale , loadProfile , getProfile }
+  { setContainerClassnames, clickOnMobileMenu, logoutUser, changeLocale  , getProfile }
 )(TopNav));

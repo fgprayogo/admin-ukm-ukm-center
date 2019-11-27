@@ -3,7 +3,7 @@ import settings from './settings/reducer';
 import menu from './menu/reducer';
 import authUser from './auth/reducer';
 import pendaftaranReducer from './pendaftaran/reducer';
-import mahasiswaReducer from './mahasiswa/reducer'
+import adminUkmReducer from './admin-ukm/reducer'
 import ukmReducer from './ukm/reducer'
 
 
@@ -17,7 +17,7 @@ const reducers = combineReducers({
   settings,
   authUser,
   pendaftaranReducer,
-  mahasiswaReducer,
+  adminUkmReducer,
   ukmReducer,
 
 

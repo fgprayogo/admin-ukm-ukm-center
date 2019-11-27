@@ -15,15 +15,15 @@ export function getProfile (history){
            Authorization: `Bearer ${token}`
          }
        }
-       const res = await axios.get(`http://127.0.0.1:3333/api/maha/profile`, apiToken)
+       const res = await axios.get(`http://127.0.0.1:3333/api/admin/profile`, apiToken)
        dispatch({
          type: GET_MAHASISWA,
-         payload: res.data.profile[0]
+         payload: res.data
          })
     }
 }
 
-export function updateProfile ({nama,nim}, history){
+export function updateProfile ({nama,deskripsi_ukm}, history){
  
   return async (dispatch) => {
      //default token
@@ -33,13 +33,13 @@ export function updateProfile ({nama,nim}, history){
          Authorization: `Bearer ${token}`
        }
      }
-     const res = await axios.put(`http://127.0.0.1:3333/api/maha/profile`,{nama,nim} ,apiToken)
+     const res = await axios.put(`http://127.0.0.1:3333/api/ukm/ukm`,{nama,deskripsi_ukm} ,apiToken)
      dispatch({
        type: UPDATE_MAHASISWA,
        payload: res.data
        })
 
-    history.push('/')
+    history.push("/")
   }
 
 }
