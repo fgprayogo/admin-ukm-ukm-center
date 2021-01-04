@@ -1,4 +1,4 @@
-# Final Project - UKM Center - User Mahasiswa
+# Final Project - UKM Center - User Admin UKM
 
 Apps ini hanya prototype untuk mengintegrasikan proses pendaftaran semua Unit Kegiatan Mahasiswa (UKM) yang ada di Indonesia dalam satu aplikasi.
 
